@@ -13,9 +13,12 @@ public class BezierCurveGenerator : BaseBehaviour
     public Transform Point0;
     public Transform Point1;
 
-    private LineRenderer lineRenderer;
+    #region NumberOfPoints: The Number of Points to generate (higher number = smoother curves)
+    [Tooltip("The Number of Points to generate (higher number = smoother curves)")]
+    public int NumberOfPoints = 50;
+    #endregion NumberOfPoints
 
-    private int numberOfPoints = 50;
+    private LineRenderer lineRenderer;
     private List<Vector3> positions;
 
     #endregion Properties
@@ -23,13 +26,15 @@ public class BezierCurveGenerator : BaseBehaviour
     #region Methods
 
     #region Start
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         this.lineRenderer = this.GetComponent<LineRenderer>();
 
-        this.lineRenderer.positionCount = this.numberOfPoints;
+        this.lineRenderer.positionCount = this.NumberOfPoints;
         this.positions = new List<Vector3>();
-        this.DrawLinearCurve();
+        this.DrawLinearCurve(this.NumberOfPoints, this.Point0.position, this.Point1.position);
     }
     #endregion Start
 
@@ -49,19 +54,25 @@ public class BezierCurveGenerator : BaseBehaviour
     #endregion CalculateLinearBezierPoint
 
     #region DrawLinearCurve
-    private void DrawLinearCurve()
+    /// <summary>
+    /// Draws a linear Bezier Curve (= Line) between two points
+    /// </summary>
+    /// <param name="numberOfPoints">The number of points to generate</param>
+    /// <param name="Start">The Starting position</param>
+    /// <param name="End">The Ending position</param>
+    private void DrawLinearCurve(int numberOfPoints, Vector3 Start, Vector3 End)
     {
         // add initial position
-        this.positions.Add(this.Point0.position);
+        this.positions.Add(Start);
 
         // calculate in-between positions
-        for (int i = 1; i < this.numberOfPoints; i++)
+        for (int i = 1; i < numberOfPoints; i++)
         {
-            float t = (float)i / (float)this.numberOfPoints;
-            this.positions.Add(this.CalculateLinearBezierPoint(t, this.Point0.position, this.Point1.position));
+            float t = (float)i / (float)numberOfPoints;
+            this.positions.Add(this.CalculateLinearBezierPoint(t, Start, End));
         }
         // add end position
-        this.positions.Add(this.Point1.position);
+        this.positions.Add(End);
 
         this.lineRenderer.SetPositions(this.positions.ToArray());
     }
