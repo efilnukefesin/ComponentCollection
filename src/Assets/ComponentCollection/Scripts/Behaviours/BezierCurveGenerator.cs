@@ -1,4 +1,5 @@
 using NET.efilnukefesin.Unity.Base;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,15 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class BezierCurveGenerator : BaseBehaviour
 {
-
     #region Properties
 
+    public Transform Point0;
+    public Transform Point1;
+
     private LineRenderer lineRenderer;
+
+    private int numberOfPoints = 50;
+    private List<Vector3> positions;
 
     #endregion Properties
 
@@ -20,6 +26,10 @@ public class BezierCurveGenerator : BaseBehaviour
     private void Start()
     {
         this.lineRenderer = this.GetComponent<LineRenderer>();
+
+        this.lineRenderer.positionCount = this.numberOfPoints;
+        this.positions = new List<Vector3>();
+        this.DrawLinearCurve();
     }
     #endregion Start
 
@@ -37,6 +47,25 @@ public class BezierCurveGenerator : BaseBehaviour
         return result;
     }
     #endregion CalculateLinearBezierPoint
+
+    #region DrawLinearCurve
+    private void DrawLinearCurve()
+    {
+        // add initial position
+        this.positions.Add(this.Point0.position);
+
+        // calculate in-between positions
+        for (int i = 1; i < this.numberOfPoints; i++)
+        {
+            float t = (float)i / (float)this.numberOfPoints;
+            this.positions.Add(this.CalculateLinearBezierPoint(t, this.Point0.position, this.Point1.position));
+        }
+        // add end position
+        this.positions.Add(this.Point1.position);
+
+        this.lineRenderer.SetPositions(this.positions.ToArray());
+    }
+    #endregion DrawLinearCurve
 
     #endregion Methods
 
