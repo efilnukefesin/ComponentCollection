@@ -67,6 +67,9 @@ public class BezierCurveGenerator : BaseBehaviour
     }
     #endregion DrawLinearCurve
 
+    //https://www.youtube.com/watch?v=Xwj8_z9OrFw
+    // cubic: https://www.youtube.com/watch?v=AxhCKFbIkmM
+
     #endregion Methods
 
 
