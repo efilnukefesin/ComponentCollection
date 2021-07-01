@@ -1,4 +1,6 @@
+using Assets.ComponentCollection.Scripts.Enums;
 using NET.efilnukefesin.Unity.Base;
+using NET.efilnukefesin.Unity.Base.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,8 +12,12 @@ public class BezierCurveGenerator : BaseBehaviour
 {
     #region Properties
 
+    public BezierTypes Type;
+
     public Transform Point0;
     public Transform Point1;
+
+    public Transform Pivot0;
 
     #region NumberOfPoints: The Number of Points to generate (higher number = smoother curves)
     [Tooltip("The Number of Points to generate (higher number = smoother curves)")]
@@ -34,24 +40,27 @@ public class BezierCurveGenerator : BaseBehaviour
 
         this.lineRenderer.positionCount = this.NumberOfPoints;
         this.positions = new List<Vector3>();
-        this.DrawLinearCurve(this.NumberOfPoints, this.Point0.position, this.Point1.position);
     }
     #endregion Start
 
-    #region CalculateLinearBezierPoint: Calculate a point on a linear Bezier 'curve'
-    /// <summary>
-    /// Calculate a point on a linear Bezier 'curve'
-    /// </summary>
-    /// <param name="t">0-1, indicates the position of the result between Point0 and Point1</param>
-    /// <param name="Point0">The first and starting point of the line</param>
-    /// <param name="Point1">The last and ending point of the line</param>
-    /// <returns></returns>
-    private Vector3 CalculateLinearBezierPoint(float t, Vector3 Point0, Vector3 Point1)
+    #region Update
+    private void Update()
     {
-        Vector3 result = Point0 + t * (Point1 - Point0);
-        return result;
+        switch (this.Type)
+        {
+            case BezierTypes.Linear:
+                this.DrawLinearCurve(this.NumberOfPoints, this.Point0.position, this.Point1.position);
+                break;
+            case BezierTypes.Quadratic:
+                this.DrawQuadraticCurve(this.NumberOfPoints, this.Point0.position, this.Point1.position, this.Pivot0.position);
+                break;
+            case BezierTypes.Cubic:
+                break;
+            default:
+                break;
+        }
     }
-    #endregion CalculateLinearBezierPoint
+    #endregion Update
 
     #region DrawLinearCurve
     /// <summary>
@@ -62,6 +71,8 @@ public class BezierCurveGenerator : BaseBehaviour
     /// <param name="End">The Ending position</param>
     private void DrawLinearCurve(int numberOfPoints, Vector3 Start, Vector3 End)
     {
+        this.positions.Clear();
+
         // add initial position
         this.positions.Add(Start);
 
@@ -69,7 +80,7 @@ public class BezierCurveGenerator : BaseBehaviour
         for (int i = 1; i < numberOfPoints; i++)
         {
             float t = (float)i / (float)numberOfPoints;
-            this.positions.Add(this.CalculateLinearBezierPoint(t, Start, End));
+            this.positions.Add(BezierHelper.CalculateLinearBezierPoint(t, Start, End));
         }
         // add end position
         this.positions.Add(End);
@@ -78,7 +89,25 @@ public class BezierCurveGenerator : BaseBehaviour
     }
     #endregion DrawLinearCurve
 
-    //https://www.youtube.com/watch?v=Xwj8_z9OrFw
+    private void DrawQuadraticCurve(int numberOfPoints, Vector3 Start, Vector3 End, Vector3 Pivot)
+    {
+        this.positions.Clear();
+
+        // add initial position
+        this.positions.Add(Start);
+
+        // calculate in-between positions
+        for (int i = 1; i < numberOfPoints; i++)
+        {
+            float t = (float)i / (float)numberOfPoints;
+            this.positions.Add(BezierHelper.CalculateQuadraticCurveBezierPoint(t, Start, End, Pivot));
+        }
+        // add end position
+        this.positions.Add(End);
+
+        this.lineRenderer.SetPositions(this.positions.ToArray());
+    }
+
     // cubic: https://www.youtube.com/watch?v=AxhCKFbIkmM
 
     #endregion Methods
