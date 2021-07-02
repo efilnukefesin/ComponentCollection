@@ -2,7 +2,8 @@
     "name": "ComponentCollectionEditor",
     "rootNamespace": "",
     "references": [
-        "GUID:174260aef7f962b47a5e586c5fc369b7"
+        "GUID:174260aef7f962b47a5e586c5fc369b7",
+        "GUID:005ade12abab538409f51541fedb8319"
     ],
     "includePlatforms": [
         "Editor"
