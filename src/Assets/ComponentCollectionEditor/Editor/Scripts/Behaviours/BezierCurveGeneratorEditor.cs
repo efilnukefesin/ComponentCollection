@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class BezierCurveGeneratorEditor : MonoBehaviour
+[CustomEditor(typeof(BezierCurveGenerator))]
+public class BezierCurveGeneratorEditor : Editor
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    #region Properties
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion Properties
+
+    #region Methods
+
+    #endregion Methods
 }

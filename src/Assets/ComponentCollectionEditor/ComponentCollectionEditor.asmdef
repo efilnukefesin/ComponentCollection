@@ -1,11 +1,13 @@
 {
     "name": "ComponentCollectionEditor",
     "rootNamespace": "",
-    "references": [],
-    "includePlatforms": [],
-    "excludePlatforms": [
+    "references": [
+        "GUID:174260aef7f962b47a5e586c5fc369b7"
+    ],
+    "includePlatforms": [
         "Editor"
     ],
+    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
