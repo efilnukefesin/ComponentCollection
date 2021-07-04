@@ -18,6 +18,7 @@ public class BezierCurveGenerator : BaseBehaviour
     public Transform Point1;
 
     public Transform Pivot0;
+    public Transform Pivot1;
 
     #region NumberOfPoints: The Number of Points to generate (higher number = smoother curves)
     [Tooltip("The Number of Points to generate (higher number = smoother curves)")]
