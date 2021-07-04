@@ -56,6 +56,7 @@ public class BezierCurveGenerator : BaseBehaviour
                 this.DrawQuadraticCurve(this.NumberOfPoints, this.Point0.position, this.Point1.position, this.Pivot0.position);
                 break;
             case BezierTypes.Cubic:
+                this.DrawCubicCurve(this.NumberOfPoints, this.Point0.position, this.Point1.position, this.Pivot0.position, this.Pivot1.position);
                 break;
             default:
                 break;
@@ -90,6 +91,7 @@ public class BezierCurveGenerator : BaseBehaviour
     }
     #endregion DrawLinearCurve
 
+    #region DrawQuadraticCurve
     private void DrawQuadraticCurve(int numberOfPoints, Vector3 Start, Vector3 End, Vector3 Pivot)
     {
         this.positions.Clear();
@@ -108,8 +110,28 @@ public class BezierCurveGenerator : BaseBehaviour
 
         this.lineRenderer.SetPositions(this.positions.ToArray());
     }
+    #endregion DrawQuadraticCurve
 
-    // cubic: https://www.youtube.com/watch?v=AxhCKFbIkmM
+    #region DrawCubicCurve
+    private void DrawCubicCurve(int numberOfPoints, Vector3 Start, Vector3 End, Vector3 Pivot0, Vector3 Pivot1)
+    {
+        this.positions.Clear();
+
+        // add initial position
+        this.positions.Add(Start);
+
+        // calculate in-between positions
+        for (int i = 1; i < numberOfPoints; i++)
+        {
+            float t = (float)i / (float)numberOfPoints;
+            this.positions.Add(BezierHelper.CalculateCubicCurveBezierPoint(t, Start, End, Pivot0, Pivot1));
+        }
+        // add end position
+        this.positions.Add(End);
+
+        this.lineRenderer.SetPositions(this.positions.ToArray());
+    }
+    #endregion DrawCubicCurve
 
     #endregion Methods
 
