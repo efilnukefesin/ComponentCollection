@@ -1,3 +1,6 @@
 [submodule "src/Assets/Base"]
 	path = src/Assets/Base
 	url = http://gitlab2.fritz.box/unity/libs/base.git
+[submodule "src/Assets/NET.efilnukefesin.Lib.Common"]
+	path = src/Assets/NET.efilnukefesin.Lib.Common
+	url = http://gitlab2.fritz.box/csharp/libs/net.efilnukefesin.lib.common.git
