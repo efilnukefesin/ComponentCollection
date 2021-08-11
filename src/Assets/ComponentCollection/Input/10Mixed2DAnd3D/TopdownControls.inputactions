@@ -1,0 +1,74 @@
+{
+    "name": "TopdownControls",
+    "maps": [
+        {
+            "name": "Default",
+            "id": "2087bf87-35b6-4508-bf92-d87f388b6961",
+            "actions": [
+                {
+                    "name": "Left",
+                    "type": "Button",
+                    "id": "74f49807-c4d9-4979-aae9-55c4d710e2c5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Right",
+                    "type": "Button",
+                    "id": "aeeb8391-9a08-480c-b7bb-f1cd8c4c0bc1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "02b0117a-30cc-4fd3-b8c4-8180f0361fec",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b77e272d-8bda-4724-b32d-d23ab0e17ae4",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c19d1b82-a4a2-40b8-b7d8-0fdb6a09fe38",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c5e651e-c7de-4b41-ac4e-ee2e16a8b511",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

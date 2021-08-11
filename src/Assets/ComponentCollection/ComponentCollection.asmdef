@@ -2,7 +2,8 @@
     "name": "ComponentCollection",
     "rootNamespace": "",
     "references": [
-        "GUID:005ade12abab538409f51541fedb8319"
+        "GUID:005ade12abab538409f51541fedb8319",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
